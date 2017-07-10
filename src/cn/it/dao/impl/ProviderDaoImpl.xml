@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.it.dao.ProviderDao">
+	<insert id="addProvider" parameterType="cn.it.model.Provider">
+		insert into
+		provider(providerName,providerSex,providerPhone,providerEmail,providerAddress) values(#{providerName},#{providerSex},#{providerPhone},#{providerEmail},#{providerAddress})
+	</insert>
+
+	<delete id="deleteProvider" parameterType="int">
+		delete from provider where
+		providerId=#{providerId}
+	</delete>
+
+	<update id="updateProvider" parameterType="cn.it.model.Provider">
+		update provider set providerSex=#{providerSex},providerPhone=#{providerPhone},providerEmail=#{providerEmail},providerAddress=#{providerAddress},providerName=#{providerName}  where providerId=#{providerId}
+	</update>
+	
+
+	<select id="findAll" resultType="cn.it.model.Provider">
+		select * from provider
+	</select>
+	
+	<select id="findProviderByProviderId" parameterType="int" resultType="cn.it.model.Provider">
+		select * from provider where providerId=#{providerId}
+	</select>
+	
+	<select id="fidnProviderLikeName" parameterType="String" resultType="cn.it.model.Provider">
+		select * from provider where providerName like concat('%',#{providerName},'%')
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,92 @@
+@CHARSET "UTF-8"
+
+html,body{
+	height:100%;
+	width:100%;
+}
+.style_Login{
+	position:relative;
+	font-size: 30px;
+	color: white;
+	top: 10px;
+}
+.page_top{
+	height:90px;
+	margin-top: 3%;
+	background-color:rgb(40,40,40);
+}
+.login_div{
+	position:relative;
+	width:400px;
+    height:300px;
+    margin-top: 14%;
+    margin-left:35%;
+    border-radius: 6px;
+}
+.style_title{
+	position:relative;
+	font-size: 35px;
+	color: white;
+	top:25%;
+	left: 4%;
+}
+.box_input{
+	height: 50px;
+	width: 80%;
+	background-color: white!important; 
+}
+.box_user{
+	margin-top:8%;
+}
+.box_pass{
+	margin-top:10%;
+}
+.input_login{
+	position:relative;
+	height: 25px;
+    width: 250px;
+    margin-left: 10px;
+    top:-10px;
+    border-bottom: 0px;
+    border-right: 0px;
+    border-top: 0px;
+}
+.icon_input{
+	padding-top:7px;
+}
+.btn{
+	border-radius: 6px;
+}
+.btn_Login{
+	width:320px;
+	height:40px;
+	margin-top: 30px;
+	background-color: rgb(65,153,202);
+	border:0px;
+	font-size: 20px;
+	color:white;
+}
+.reg{
+	color: rgb(86,231,231);
+	font-size: 10px;
+	font-style:italic;
+	margin-left: 40px!important;
+}
+.box_check{
+	margin-top:10%;
+}
+.icon_check{
+	margin-left: -8px;
+}
+.input_check{
+	position:relative;
+	height: 25px;
+    margin-left: 5px;
+    top:-10px;
+    border-bottom: 0px;
+    border-right: 0px;
+    border-top: 0px;	
+}
+.pc_check{
+	margin-left:10px;
+}

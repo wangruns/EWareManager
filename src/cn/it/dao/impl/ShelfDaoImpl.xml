@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.it.dao.ShelfDao">
+
+
+	<insert id="addShelf" parameterType="cn.it.model.Shelf">
+		INSERT into shelf(shelfNumber) SELECT #{shelfNumber}  from DUAL WHERE  not EXISTS(SELECT * FROM shelf WHERE shelfNumber=#{shelfNumber})
+	</insert>
+
+	<delete id="deleteShelf" parameterType="String">
+		delete from shelf where
+		shelfNumber=#{shelfNumber}
+	</delete>
+
+	<update id="updateShelf" parameterType="cn.it.model.Shelf">
+		update shelf set shelfNumber=#{shelfNumber} where shelfId=#{shelfId}
+	</update>
+	
+
+	<select id="findAll" resultType="cn.it.model.Shelf">
+		select * from shelf
+	</select>
+	
+	<select id="findShelfByShelfId" resultType="cn.it.model.Shelf">
+		select * from shelf where shelfId=#{shelfId}
+	</select>
+	
+	
+	<select id="findShelfLikeShelfNumber" parameterType="String" resultType="cn.it.model.Shelf">
+		select * from shelf where shelfNumber like concat('%',#{shelfNumber},'%')
+	</select>
+
+</mapper>

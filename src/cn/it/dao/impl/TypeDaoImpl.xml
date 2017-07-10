@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.it.dao.TypeDao">
+
+    <insert id="addType" parameterType="cn.it.model.Type">
+    	INSERT into type(typeName,fatherTypeId,sonTypeId) SELECT #{typeName},#{fatherTypeId},#{sonTypeId}  from DUAL WHERE  not EXISTS(SELECT * FROM type WHERE typeName=#{typeName})
+	</insert>
+
+	<delete id="deleteType" parameterType="int">
+		delete from type where
+		typeId=#{typeId}
+	</delete>
+
+	<update id="updateType" parameterType="cn.it.model.Type">
+		update type set typeName=#{typeName},fatherTypeId=#{fatherTypeId},sonTypeId=#{sonTypeId} where typeId=#{typeId} 
+	</update>
+	
+
+	<select id="findAll" resultType="cn.it.model.Type">
+		select * from type
+	</select>
+	
+	<select id="findTypeLikeTypeName" parameterType="String" resultType="cn.it.model.Type">
+		select * from type where typeName like concat('%',#{typeName},'%' )
+	</select>
+	
+	<select id="findTypeBytypeId" parameterType="int" resultType="cn.it.model.Type">
+		select * from type where typeId=#{typeId}
+	</select>
+    
+    <select id="getAllFatherType" resultType="cn.it.model.Type">
+    	select * from type where typeId in(select fatherTypeId from type where fatherTypeId!=0)
+    </select>
+
+</mapper>

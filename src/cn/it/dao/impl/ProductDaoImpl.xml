@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.it.dao.ProductDao">
+
+	<insert id="addProduct" parameterType="cn.it.model.Product" >
+		insert into product(productName,typeId,brandId,shelfId,productNumber,productAlertValue) values(#{productName},#{typeId},#{brandId},#{shelfId},#{productNumber},#{productAlertValue}) 
+	</insert>
+
+	<delete id="deleteProduct" parameterType="int" >
+		delete from product where
+		productId=#{productId}
+	</delete>
+	
+	<select id="lastInsertId" resultType="int">
+		select max(productId) from product;
+	</select>
+
+	<update id="updateProduct" parameterType="cn.it.model.Product">
+		update product set
+		typeId=#{typeId},brandId=#{brandId},shelfId=#{shelfId},productNumber=#{productNumber},productName=#{productName},productAlertValue=#{productAlertValue} where productId=#{productId}
+	</update>
+
+
+	<select id="findAll" resultType="cn.it.model.Product">
+		select * from product
+	</select>
+
+	<select id="findProductByProductId" parameterType="int"
+		resultType="cn.it.model.Product">
+		select * from product where productId=#{productId}
+	</select>
+	
+	
+	<update id="updateAlarmValue" parameterType="cn.it.model.Product">
+		update product set productAlertValue=#{productAlertValue} where productName=#{productName}
+	</update>
+	
+	
+	<select id="findProductByProductName" parameterType="String"
+		resultType="cn.it.model.Product">
+		select * from product where productName=#{productName}
+	</select>
+	
+	
+
+
+
+</mapper>

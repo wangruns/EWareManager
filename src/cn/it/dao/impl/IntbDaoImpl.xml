@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.it.dao.IntbDao">
+
+
+	<insert id="addIn" parameterType="cn.it.model.Intb">
+		insert into
+		intb(productId,providerId,inNumber,shelfId)
+		values(#{productId},#{providerId},#{inNumber},#{shelfId})
+	</insert>
+
+
+	<delete id="deleteIn" parameterType="int">
+		delete from intb where
+		inId=#{inId}
+	</delete>
+
+	<update id="updateIn" parameterType="cn.it.model.Intb">
+		update intb set
+		providerId=#{providerId},inNumber=#{inNumber},shelfId=#{shelfId} where
+		inId=#{inId}
+	</update>
+
+
+	<select id="findAll" resultType="cn.it.model.Intb">
+		select * from intb
+	</select>
+
+	<select id="findInByInId" parameterType="int" resultType="cn.it.model.Intb">
+		select * from intb where inId=#{inId}
+	</select>
+	
+	<select id="getActiveIdAndIdCount" parameterType="String"  resultType="cn.it.model.ActiveID">
+		SELECT productId as id,COUNT(productId) as idCountNumber FROM intb
+		WHERE DATE_FORMAT(intb.inDate,'%Y-%m')=#{inDate}
+		GROUP BY productId ORDER BY 2 DESC LIMIT 3
+	</select>
+	
+	<select id="findInByProductId" parameterType="int" resultType="cn.it.model.Intb">
+		select * from intb where productId=#{productId}
+	</select>
+	
+	<select id="getPeopleIdAndCount" parameterType="String"  resultType="cn.it.model.ActiveID">
+		SELECT providerId as id,COUNT(providerId) as idCountNumber FROM intb
+		WHERE DATE_FORMAT(intb.inDate,'%Y-%m')=#{inDate}
+		GROUP BY providerId ORDER BY 2 DESC LIMIT 3
+	</select>
+
+
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.it.dao.OuttbDao">
+
+
+
+<insert id="addOut" parameterType="cn.it.model.Outtb">
+		insert into
+		outtb(productId,customerId,outNumber,planOutNumber,shelfId)
+		values(#{productId},#{customerId},#{outNumber},#{planOutNumber},#{shelfId})
+	</insert>
+
+<select id="getLastInsertId" resultType="int">
+		select max(outId) from outtb
+</select>
+
+	<delete id="deleteOut" parameterType="int">
+		delete from outtb where
+		outId=#{outId}
+	</delete>
+
+	<update id="updateOut" parameterType="cn.it.model.Outtb">
+		update outtb set
+		customerId=#{customerId},outNumber=#{outNumber},planOutNumber=#{planOutNumber},shelfId=#{shelfId} where
+		outId=#{outId}
+	</update>
+
+
+	<select id="findAll" resultType="cn.it.model.Outtb">
+		select * from outtb
+	</select>
+
+	<select id="findOutByOutId" parameterType="int" resultType="cn.it.model.Outtb">
+		select * from outtb where outId=#{outId}
+	</select>
+	
+	<select id="getActiveIdAndIdCount" parameterType="String" resultType="cn.it.model.ActiveID">
+		SELECT productId as id,COUNT(productId) as idCountNumber FROM outtb
+		WHERE DATE_FORMAT(outtb.outDate,'%Y-%m')=#{outDate}
+		GROUP BY productId ORDER BY 2 DESC LIMIT 3
+	</select>
+	
+
+	<select id="getPeopleIdAndCount" parameterType="String"  resultType="cn.it.model.ActiveID">
+		SELECT customerId as id,COUNT(customerId) as idCountNumber FROM outtb
+		WHERE DATE_FORMAT(outtb.outDate,'%Y-%m')=#{inDate}
+		GROUP BY customerId ORDER BY 2 DESC LIMIT 3
+	</select>
+
+</mapper>

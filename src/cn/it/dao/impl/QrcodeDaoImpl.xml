@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.it.dao.QrcodeDao">
+
+
+    
+    <insert id="addQrcode" parameterType="cn.it.model.Qrcode">
+    INSERT into qrcode(qrContent) SELECT #{qrContent}  from DUAL WHERE  not EXISTS(SELECT * FROM qrcode WHERE qrContent=#{qrContent})
+	</insert>
+
+	<delete id="deleteQrcode" parameterType="String">
+		delete from qrcode where qrContent=#{qrContent}
+	</delete>
+
+	<update id="updateQrcode" parameterType="cn.it.model.Qrcode">
+		update qrcode set qrContent=#{qrContent} where qrCodeId=#{qrCodeId}
+	</update>
+	
+
+	<select id="findAll" resultType="cn.it.model.Qrcode">
+		select * from qrcode
+	</select>
+	
+	<select id="findQrcodeLikeQrContent" parameterType="String" resultType="cn.it.model.Qrcode">
+		select * from qrcode where qrContent like concat('%',#{qrContent},'%')
+	</select>
+    
+
+</mapper>

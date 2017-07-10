@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+  
+  <context:component-scan base-package="cn.it.controller"/>
+    <!-- 处理器映射器和适配器，可以使用mvc注解驱动 -->
+	<mvc:annotation-driven />
+	
+	<!-- 视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 将jstl的jar包加入工程，默认支持jstl -->
+		<!-- 前缀和后缀可以去掉的，为了方便开发才加的 -->
+		<property name="prefix" value="jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+
+		<!-- 拦截器 -->  
+		<mvc:interceptors>  
+		    <!-- 多个拦截器，顺序执行 -->  
+		 <mvc:interceptor>  
+		     <!-- /**表示所有url包括子url路径 -->  
+		        <mvc:mapping path="/**/user.do" />  
+		        <bean class="cn.it.interceptor.LoginInterceptor"/>  
+		    </mvc:interceptor>  
+		    <mvc:interceptor>  
+		        <mvc:mapping path="/**/permission.do" />  
+		        <bean class="cn.it.interceptor.LoginInterceptor"/>  
+		    </mvc:interceptor>
+		    
+		    <!-- 防止页面被非法访问 -->
+		      <mvc:interceptor>  
+		        <mvc:mapping path="/**" />  
+		        <bean class="cn.it.interceptor.BaseInformationInterceptor"/>  
+		    </mvc:interceptor>
+		    
+		</mvc:interceptors>  
+	
+</beans>

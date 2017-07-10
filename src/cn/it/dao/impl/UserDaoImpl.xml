@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.it.dao.UserDao">
+
+   <insert id="addUser" parameterType="cn.it.model.User">
+   INSERT into user(userAccount,userPassword,userName,userSex,userPhone,userEmail,userAddress,userLevel) SELECT #{userAccount},#{userPassword},#{userName},#{userSex},#{userPhone},#{userEmail},#{userAddress},#{userLevel}  from DUAL WHERE  not EXISTS(SELECT * FROM user WHERE userAccount=#{userAccount})
+   </insert>
+   
+   <select id="findByUserAccountAndPassword" parameterType="cn.it.model.User" resultType="cn.it.model.User">
+      select * from user where userAccount=#{userAccount} and userPassword=#{userPassword}
+   </select>
+   
+    <select id="findUserById" parameterType="int" resultType="cn.it.model.User">
+      select * from user where userId=#{userId}
+   </select>
+   
+   <select id="findUserByAccount" parameterType="String" resultType="cn.it.model.User">
+      select * from user where userAccount=#{userAccount}
+   </select>
+   
+   <select id="findAll"  resultType="cn.it.model.User">
+   		select * from user
+   </select>
+   
+     <select id="findUserLikeName" parameterType="String" resultType="cn.it.model.User">
+   		select * from user where userName like concat('%',#{userName},'%')
+   </select>
+   
+   <update id="updateUser" parameterType="cn.it.model.User">
+   		update user set userName=#{userName},userPassword=#{userPassword},userPhone=#{userPhone},userEmail=#{userEmail},userAddress=#{userAddress},userLevel=#{userLevel}
+   		where userId=#{userId}
+   </update>
+   
+   <delete id="deleteUser" parameterType="int">
+   		delete from user where userId=#{userId}
+   </delete>
+   
+   
+   
+</mapper>

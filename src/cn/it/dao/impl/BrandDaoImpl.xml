@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.it.dao.BrandDao">
+
+
+	
+	<insert id="addBrand" parameterType="cn.it.model.Brand">
+	INSERT into brand(brandName) SELECT #{brandName}  from DUAL WHERE  not EXISTS(SELECT * FROM brand WHERE brandName=#{brandName})
+	</insert>
+
+	<delete id="deleteBrand" parameterType="int">
+		delete from brand where brandId=#{brandId}
+	</delete>
+
+	<update id="updateBrand" parameterType="cn.it.model.Brand">
+		update brand set brandName=#{brandName} where brandId=#{brandId}
+	</update>
+	
+
+	<select id="findAll" resultType="cn.it.model.Brand">
+		select * from brand
+	</select>
+	
+	<select id="findBrandBybrandName" resultType="cn.it.model.Brand">
+		select * from brand where brandName=#{brandName}
+	</select>
+	
+	
+	<select id="findBrandLikeBrandName" parameterType="String" resultType="cn.it.model.Brand">
+		select * from brand where brandName like concat('%',#{brandName},'%')
+	</select>
+
+
+</mapper>

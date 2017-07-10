@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.it.dao.ChecktbDao">
+
+<insert id="addCheck" parameterType="cn.it.model.Checktb">
+		insert into checktb(productId,userId,checkNumber,shelfId)
+		values(#{productId},#{userId},#{checkNumber},#{shelfId})
+	</insert>
+
+
+	<delete id="deleteCheck" parameterType="int">
+		delete from checktb where
+		checkId=#{checkId}
+	</delete>
+
+	<update id="updateCheck" parameterType="cn.it.model.Checktb">
+		update checktb set checkNumber=#{checkNumber}  where checkId=#{checkId}
+	</update>
+
+
+	<select id="findAll" resultType="cn.it.model.Checktb">
+		select * from checktb
+	</select>
+
+	<select id="findCheckBycheckId" parameterType="int" resultType="cn.it.model.Checktb">
+		select * from checktb where checkId=#{checkId}
+	</select>
+	
+	<select id="getCheckShow"  resultType="cn.it.model.CheckShowAll">
+		select checktb.productId as checkId, checkDate,checkNumber,shelfNumber,userName as checkPerson,productName from checktb,shelf,user,product
+		where checktb.shelfId=shelf.shelfId and checktb.userId=user.userId and checktb.productId=product.productId
+	</select>
+
+
+
+
+</mapper>
